@@ -51,7 +51,7 @@ class Canvas(object):
             plt.ion()
             plt.figure(index)
             index +=1
-            plt.title("K-means clustering")
+            plt.title("K-means clustering State : " +str(index-1))
 
             Canvas.displayCentroids(listOfCentroids)
             Canvas.displayPoints(cluster)
