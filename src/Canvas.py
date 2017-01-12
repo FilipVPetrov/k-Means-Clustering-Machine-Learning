@@ -16,19 +16,12 @@ class Canvas(object):
     Y_MAX = 20
 
     @staticmethod
-    def checkExistingPoint(x,y, listOfPoints):
-        for point in listOfPoints:
-            if point.x == x and point.y == y:
-                return True
-        return False
-
-    @staticmethod
     def createPointsN(number):
         listOfPoints = []
         for i in range(number):
             x = randint(1,16)
             y = randint(1,16)
-            if True == Canvas.checkExistingPoint(x,y,listOfPoints):
+            if True == Point.checkExistingPoint(Point(x,y),listOfPoints):
                 i -= 1
                 continue
             color = "white"
@@ -53,7 +46,6 @@ class Canvas(object):
             cluster.clear()
             print cluster
             cluster = Canvas.createClusters(listOfPoints, listOfCentroids) 
-            # print cluster
             # for i in listOfPoints:
             #     print str(i)
             plt.ion()
@@ -76,7 +68,7 @@ class Canvas(object):
         Canvas.computeCluster(listOfPoints,listOfCentroids)
         plt.ion()
         plt.figure()
-        plt.title("K-means clustering")
+        plt.title("Final State: K-means clustering")
         Canvas.displayPoints(cluster)
         Canvas.displayCentroids(listOfCentroids)
         plt.axis([Canvas.X_MIN, Canvas.X_MAX, Canvas.Y_MIN, Canvas.Y_MAX])
@@ -143,25 +135,19 @@ class Canvas(object):
             element.color = tempCent.color
             print "Computed for : " + str(element)
         print "_______________________________________________" + str("\n")
-        # for i in listOfPoints:
-        #     print str(i)
     
     @staticmethod
     def getCloserCentroid(point, listOfCentroids):
         minDistanse  = sys.float_info.max
         closestCent = listOfCentroids[0]
         for element in listOfCentroids:
-            distanse = Canvas.calculateDistance(point,element)
+            distanse = Point.calculateDistance(point,element)
             # print "Distanse  "+ str(distanse) + " between Point :" + str(point) + " and Centroid: " + str(element)
 
             if distanse < minDistanse:
                 minDistanse = distanse
                 closestCent = element
         return closestCent
-
-    @staticmethod
-    def calculateDistance(first, second):
-        return np.sqrt((first.x-second.x)**2 + (first.y-second.y)**2)
 
     @staticmethod
     def updateCentroid(listOfPoints, listOfCentroids):
