@@ -151,11 +151,10 @@ class Canvas(object):
 
     @staticmethod
     def updateCentroid(listOfPoints, listOfCentroids):
-        AllX = 0
-        AllY = 0
-        InCluster = 0
-    
         for elementCent in listOfCentroids:
+            AllX = 0
+            AllY = 0
+            InCluster = 0
             for elementPnt in listOfPoints:
                 if(elementPnt.color == elementCent.color):
                     AllX += elementPnt.x
